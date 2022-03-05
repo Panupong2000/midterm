@@ -15,8 +15,8 @@ export class FlightComponent implements OnInit {
   flights !: Flight[];
   sDate: Date;
   StartDate: Date;
-  LFrom:string [] = ['Bangkok','Amnat Charoen','Ang Thong','Nonthaburi','Nakhon Sawan'];
-  LTo:string [] = ['Chiang Mai','Chiang Rai','Lampang','Lamphun','Mae Hong Son'];
+  LFrom:string [] = ['Thailand','Laos','Chaina','America','EngLand','Korea','Japanese'];
+  LTo:string [] = ['Thailand','Laos','Chaina','America','EngLand','Korea','Japanese'];
 
 
 
