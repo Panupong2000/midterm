@@ -1,0 +1,110 @@
+<h1 style="text-align: center;">Book a flight</h1>
+<form [formGroup]="flightForm" (ngSubmit)="onSubmit(flightForm.value)" >
+
+<div class="container">
+
+  <div class="mb-4">
+    <label class="form-label">FullName : </label>
+    <span style="color: red" *ngIf="flightForm.get('fullName')?.errors?.['required']">*required</span>
+    <input class="form-control" formControlName="fullName">
+  </div>
+
+<div class="mb-4">
+  <div class="row">
+    <div class="col">
+  <label class="form-label">From :</label>
+  <span style="color: red" *ngIf="flightForm.get('from')?.errors?.['required']">*required</span>
+  <select class="form-select"  formControlName="from">
+    <option *ngFor="let item of LFrom" [value]="item">{{item}}</option>
+  </select>
+</div>
+<div class="col">
+  <label class="form-label" >To :</label>
+  <span style="color: red" *ngIf="flightForm.get('to')?.errors?.['required']">*required</span>
+  <select class="form-select" formControlName="to">
+    <option *ngFor="let item of LTo" [value]="item">{{item}}</option>
+  </select>
+  </div>
+</div>
+</div>
+
+<div class="row mb-5">
+<div class="col ">
+  <label class="form-label">Trip Type :</label>
+  <span style="color: red" *ngIf="flightForm.get('type')?.errors?.['required']">*required</span><br/>
+    <input type="radio" value="One way" formControlName="type">
+    One way
+    <input type="radio" value="Return" formControlName="type">
+    Return
+</div>
+<div class="col">
+  <label class="form-label">Departure :</label>
+  <span style="color: red" *ngIf="flightForm.get('departure')?.errors?.['required']">*required</span>
+  <input class="form-control" type="date" id="dedate" min="{{StartDate|date:'yyyy-dd-MM'}}" formControlName="departure">
+</div>
+<div class="col">
+  <label class="form-label">Arrival :</label>
+  <span style="color: red" *ngIf="flightForm.get('type')?.value == 'Return'">*required</span>
+  <input class="form-control" type="date" min="{{flightForm.get('departure')?.value}}" formControlName="arrival">
+</div>
+</div>
+
+<div class="row mb-3">
+  <div class="col">
+    <label class="form-label">Adults :</label>
+    <span style="color: red" *ngIf="flightForm.get('adults')?.errors?.['required']">*required</span>
+    <span style="color: red;" *ngIf="flightForm.get('adults')?.errors?.['pattern']"> *number</span>
+    <span style="color: red" *ngIf="flightForm.get('adults')?.errors?.['max']">*max 99</span>
+  <input class="form-control" type="number"id="adults" formControlName="adults" required />
+  </div>
+
+  <div class="col">
+    <label class="form-label">Children :</label>
+    <span style="color: red;" *ngIf="flightForm.get('children')?.errors?.['pattern']"> *number</span>
+    <span style="color: red" *ngIf="flightForm.get('children')?.errors?.['max']">*max 99</span>
+  <input class="form-control" type="number"id="children" formControlName="children"/>
+  </div>
+
+  <div class="col">
+    <label class="form-label">Infants :</label>
+    <span style="color: red;" *ngIf="flightForm.get('infants')?.errors?.['pattern']"> *number</span>
+    <span style="color: red" *ngIf="flightForm.get('infants')?.errors?.['max']">*max 99</span>
+  <input class="form-control" type="number"id="infants" formControlName="infants" />
+  </div>
+
+</div>
+
+<div>
+  <button class="btn btn-primary col-12 btn-lg " [disabled]="flightForm.invalid" type="submit">Submit</button>
+</div>
+</div>
+</form>
+
+<table class="table table-striped mt-5">
+  <thead>
+    <tr>
+      <th scope="col">Full Name</th>
+      <th scope="col">From</th>
+      <th scope="col">To</th>
+      <th scope="col">Trip Type</th>
+      <th scope="col">Departure</th>
+      <th scope="col">Arrival</th>
+      <th scope="col">Adults</th>
+      <th scope="col">Children</th>
+      <th scope="col">Infants</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let flight of flights">
+      <td>{{ flight.fullName }}</td>
+      <td>{{ flight.from }}</td>
+      <td>{{ flight.to }}</td>
+      <td>{{ flight.type }}</td>
+      <td>{{ flight.departure.getDate() + '/' + (flight.departure.getMonth() + 1) + '/' + flight.departure.getFullYear() }}</td>
+      <td>{{ flight.arrival.getDate() + '/' + (flight.arrival.getMonth() + 1) + '/' + flight.arrival.getFullYear() }}</td>
+      <td>{{ flight.adults }}</td>
+      <td>{{ flight.children }}</td>
+      <td>{{ flight.infants }}</td>
+    </tr>
+  </tbody>
+</table>
